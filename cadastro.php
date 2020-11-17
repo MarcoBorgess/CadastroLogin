@@ -1,7 +1,6 @@
 <?php
-session_start();
+    session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -29,18 +28,31 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center text-success display-2"> Login </h1>
+        <h1 class="text-center text-success display-2"> Cadastro </h1>
+        
         <?php
-            if(isset($_SESSION['nao_autenticado'])):
+            if(isset($_SESSION['status_cadastro'])):
         ?>
-        <div class="alert alert-danger">
-            <strong>ERRO:</strong> Usuário ou senha inválidos.
+        <div class="alert alert-success">
+            <strong>Cadastro efetuado!</strong>
+            <p>Faça login com seu usuário e senha <a href="login.php">aqui</a></p>  
         </div>
         <?php
             endif;
-            unset($_SESSION['nao_autenticado']);
+            unset($_SESSION['status_cadastro']);
         ?>
-        <form action="login.php" method="POST">
+        
+        <?php
+            if(isset($_SESSION['usuario_existe'])):
+        ?>
+        <div class="alert alert-danger">
+            <strong>ERRO:</strong> Usuário está em uso.
+        </div>
+        <?php
+            endif;
+            unset($_SESSION['usuario_existe']);
+        ?>
+        <form action="cadastrar.php" method="POST">
             <div class="form-group">
               <label for="user">Usuário:</label>
               <input name="usuario" type="text" class="form-control" placeholder="Seu usuário" autofocus="">
@@ -50,8 +62,8 @@ session_start();
               <input name="senha" type="password" class="form-control" placeholder="Sua senha">
             </div>
             <button type="submit" class="btn btn-success">Enviar</button>
-            <a href="cadastro.php">
-                <button type="button" class="btn btn-info" >Cadastrar</button>
+            <a href="login.php">
+                <button type="button" class="btn btn-info" >Logar</button>
             </a>
         </form>
     </div>
