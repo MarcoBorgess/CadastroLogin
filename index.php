@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -17,22 +21,33 @@
         .display-2{
             padding-bottom: 20px;
         }
+        .form-control::-webkit-input-placeholder{
+            opacity: 0.6;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center text-success display-2"> Login </h1>
+        <?php
+            if(isset($_SESSION['nao_autenticado'])):
+        ?>
         <div class="alert alert-danger">
             <strong>ERRO:</strong> Usuário ou senha inválidos.
         </div>
-        <form action="/control.php">
+        <?php
+            endif;
+            unset($_SESSION['nao_autenticado']);
+        ?>
+        <form action="login.php" method="POST">
             <div class="form-group">
-              <label for="email">Usuário:</label>
-              <input type="text" class="form-control" id="user">
+              <label for="user">Usuário:</label>
+              <input name="usuario" type="text" class="form-control" placeholder="Seu usuário" autofocus="">
             </div>
             <div class="form-group">
               <label for="pwd">Senha:</label>
-              <input type="password" class="form-control" id="pwd">
+              <input name="senha" type="password" class="form-control" placeholder="Sua senha">
             </div>
             <button type="submit" class="btn btn-success">Enviar</button>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalCadastro">Cadastrar</button>
